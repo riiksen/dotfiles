@@ -122,9 +122,6 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "michael";
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   programs = {
     ssh = {
       askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
