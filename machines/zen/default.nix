@@ -18,7 +18,7 @@
 
         home-manager.sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
 
-        home-manager.users.michael = import ./home.nix;
+        home-manager.users.michael = import (lib.shared.root "users/michael");
       }
     ];
 
