@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -47,8 +47,8 @@
     nushell = {
       enable = true;
 
-      configFile.source = ./config.nu;
-      envFile.source = ./env.nu;
+      configFile.source = lib.shared.root "./config.nu";
+      envFile.source = lib.shared.root "./env.nu";
     };
 
     carapace.enable = true;
@@ -79,18 +79,39 @@
 
     git = {
       enable = true;
-      core.pager = "delta";
+      extraConfig = {
+        core.pager = "delta";
+        init.defaultBranch = "master";
 
-      init.defaultBranch = "master";
+        commit.gpgsign = true;
+        tag.gpgsign = true;
+      };
+    };
+
+    gpg.enable = true;
+
+    ssh = {
+      enable = true;
+      addKeysToAgent = "yes";
     };
   };
 
   home.packages = with pkgs; [
-    neofetch
-    nnn # terminal file manager
-    bat
+    home-manager
 
-    delta
+    # Core packages
+    pinentry
+
+    # KDE
+    inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
+    kdePackages.krohnkite
+
+    # Programs
+    warp-terminal
+
+    # Terminal utilities
+    neofetch
+    bat
 
     fzf
     file
@@ -116,21 +137,22 @@
     mtr
     nmap
 
+    # Git
+    delta
     lazygit
 
+    # Fonts
     dina-font
     liberation_ttf
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
-
-    inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
   ];
 
   home.file = {
     ".spacemacs" = {
-      source = configs/.spacemacs;
+      source = lib.shared.root "configs/.spacemacs";
     };
   };
 }

@@ -125,6 +125,14 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  programs = {
+    ssh = {
+      askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
+      enableAskPassword = true;
+      startAgent = true;
+    };
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
