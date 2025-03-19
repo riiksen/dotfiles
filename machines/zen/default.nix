@@ -1,13 +1,25 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+
+      inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
+      inputs.home-manager.nixosModules.home-manager
+
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+
+        home-manager.extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        home-manager.sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
+
+        home-manager.users.michael = import ./home.nix;
+      }
     ];
 
   # Bootloader.

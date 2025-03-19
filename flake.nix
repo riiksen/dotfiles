@@ -34,34 +34,35 @@
     };
   };
 
-  outputs = inputs@{
-    nixpkgs,
-    nixos-06cb-009a-fingerprint-sensor,
-    home-manager,
-    plasma-manager,
-    ...
-  }: {
-    nixosConfigurations = {
-      zen = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      ...
+    }:
+    let
+      inherit (self) outputs;
+      inherit (nixpkgs) lib;
 
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-            };
+      mkHostConfigs =
+        machines: lib.foldl (acc: set: acc // set) { } (lib.map (host: mkMachine host) machines);
 
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
-
-            home-manager.users.michael = import ./home.nix;
-          }
-        ];
+      mkMachine = machine: {
+        ${machine} = lib.nixosSystem {
+          modules = [ ./machines/${machine} ];
+          specialArgs = {
+            inherit inputs outputs;
+          };
+        };
       };
+
+      machines = lib.attrNames (builtins.readDir ./machines);
+      system = "x86_64-linux";
+
+  in {
+    nixosConfigurations = lib.fold (acc: set: acc // set) { } (lib.map (machine: mkMachine machine) machines);
+
+
     };
   };
 }
