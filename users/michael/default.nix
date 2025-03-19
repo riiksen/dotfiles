@@ -1,5 +1,11 @@
 { config, lib, pkgs, inputs, ... }:
 
+{
+  imports = [
+    core/development.nix
+    core/shell.nix
+  ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "michael";
@@ -40,37 +46,6 @@
           rows = 3;
         };
       };
-    };
-
-    alacritty.enable = true;
-
-    nushell = {
-      enable = true;
-
-      configFile.source = lib.shared.root "./config.nu";
-      envFile.source = lib.shared.root "./env.nu";
-    };
-
-    carapace.enable = true;
-    carapace.enableNushellIntegration = true;
-
-    starship = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
-
-    # Code editors
-    emacs = {
-      enable = true;
-      package = pkgs.emacs;
-    };
-
-    vim = {
-      enable = true;
-    };
-
-    neovim = {
-      enable = true;
     };
 
     vscode = {
