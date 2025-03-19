@@ -17,6 +17,16 @@
 
   fonts.fontconfig.enable = true;
 
+  services = {
+    gpg-agent = {
+      enable = true;
+      defaultCacheTtl = 1800;
+      enableSshSupport = true;
+
+      pinentryPackage = pkgs.pinentry-qt;
+    };
+  };
+
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
@@ -44,9 +54,27 @@
     carapace.enable = true;
     carapace.enableNushellIntegration = true;
 
+    starship = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
+
+    # Code editors
     emacs = {
       enable = true;
       package = pkgs.emacs;
+    };
+
+    vim = {
+      enable = true;
+    };
+
+    neovim = {
+      enable = true;
+    };
+
+    vscode = {
+      enable = true;
     };
 
     git = {
