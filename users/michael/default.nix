@@ -3,6 +3,7 @@
 {
   imports = [
     core/development.nix
+    core/plasma.nix
     core/shell.nix
   ];
 
@@ -37,18 +38,6 @@
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
-    plasma = {
-      enable = true;
-
-      kwin = {
-        virtualDesktops = {
-          number = 15;
-          rows = 3;
-        };
-      };
-    };
-
-    vscode = {
       enable = true;
     };
 
