@@ -19,4 +19,10 @@
       enableNushellIntegration = true;
     };
   };
+
+  home.packages = with pkgs; [
+    strace
+    ltrace
+    lsof
+  ];
 }

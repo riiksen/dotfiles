@@ -1,3 +1,4 @@
+{ inputs, pkgs, ... }:
 {
   programs.plasma = {
     enable = true;
@@ -9,4 +10,9 @@
       };
     };
   };
+
+  home.packages = with pkgs; [
+    inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
+    kdePackages.krohnkite
+  ];
 }
