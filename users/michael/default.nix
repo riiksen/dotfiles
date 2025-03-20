@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -51,7 +57,12 @@
       # Fonts
       dina-font
       liberation_ttf
-      (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "DroidSansMono"
+        ];
+      })
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji

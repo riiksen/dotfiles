@@ -62,10 +62,13 @@
       machines = lib.attrNames (builtins.readDir ./machines);
       system = "x86_64-linux";
 
-  in {
-    nixosConfigurations = lib.fold (acc: set: acc // set) { } (lib.map (machine: mkMachine machine) machines);
+    in
+    {
+      nixosConfigurations = lib.fold (acc: set: acc // set) { } (
+        lib.map (machine: mkMachine machine) machines
+      );
 
-    formatter = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
-  };
+    };
 }
