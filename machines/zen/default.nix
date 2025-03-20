@@ -1,24 +1,14 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-  imports = [
+  imports = lib.flatten [
     ./hardware-configuration.nix
-
-    inputs.nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
-    inputs.home-manager.nixosModules.home-manager
-
-    {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-
-      home-manager.extraSpecialArgs = {
-        inherit inputs;
-      };
-
-      home-manager.sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
-
-      home-manager.users.michael = import (lib.shared.root "users/michael");
-    }
+    (map lib.utils.fromRoot [
+      "modules/audio.nix"
+      "modules/home-manager.nix"
+      "modules/t480-fingerprint-sensor.nix"
+      "modules/yubikey.nix"
+    ])
   ];
 
   # Bootloader.
@@ -89,7 +79,6 @@
     shell = pkgs.nushell;
   };
 
-
   programs = {
     ssh = {
       askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
@@ -122,13 +111,6 @@
 
   # List services that you want to enable:
   services = {
-    "06cb-009a-fingerprint-sensor" = {
-      enable = true;
-      # backend = "python-validity";
-      backend = "libfprint-tod";
-      calib-data-file = lib.shared.root "calib-data.bin";
-    };
-
     # Enable the OpenSSH daemon.
     # services.openssh.enable = true;
 
