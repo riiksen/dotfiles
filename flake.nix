@@ -49,6 +49,8 @@
 
       mkMachine = machine: {
         ${machine} = lib.nixosSystem {
+          system = system;
+
           lib = nixpkgs.lib.extend (self: super: { utils = import ./lib { inherit (nixpkgs) lib; }; });
           modules = [ ./machines/${machine} ];
           specialArgs = {
@@ -63,7 +65,7 @@
   in {
     nixosConfigurations = lib.fold (acc: set: acc // set) { } (lib.map (machine: mkMachine machine) machines);
 
+    formatter = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
-    };
   };
 }
