@@ -15,6 +15,9 @@
 
   fonts.fontconfig.enable = true;
 
+  pam = {
+    sessionVariables = {
+      EDITOR = "vim";
     };
   };
 
