@@ -1,4 +1,4 @@
 { lib, ... }:
 {
-  root = lib.path.append ../.;
+  fromRoot = lib.path.append ../.;
 }

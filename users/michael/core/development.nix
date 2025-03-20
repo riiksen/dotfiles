@@ -1,5 +1,22 @@
 { lib, pkgs, ... }:
 {
+  home = {
+    file = {
+      ".spacemacs" = {
+        source = lib.shared.root "configs/.spacemacs";
+      };
+    };
+
+    packages = with pkgs; [
+      # Git
+      delta
+      lazygit
+
+      # Utilities
+      tokei
+    ];
+  };
+
   programs = {
     git = {
       enable = true;
@@ -30,19 +47,4 @@
       nix-direnv.enable = true;
     };
   };
-
-  home.file = {
-    ".spacemacs" = {
-      source = lib.shared.root "configs/.spacemacs";
-    };
-  };
-
-  home.packages = with pkgs; [
-    # Git
-    delta
-    lazygit
-
-    # Utilities
-    tokei
-  ];
 }

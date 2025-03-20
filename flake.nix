@@ -49,7 +49,7 @@
 
       mkMachine = machine: {
         ${machine} = lib.nixosSystem {
-          lib = nixpkgs.lib.extend (self: super: { shared = import ./lib { inherit (nixpkgs) lib; }; });
+          lib = nixpkgs.lib.extend (self: super: { utils = import ./lib { inherit (nixpkgs) lib; }; });
           modules = [ ./machines/${machine} ];
           specialArgs = {
             inherit inputs outputs;
