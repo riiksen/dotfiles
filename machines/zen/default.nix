@@ -132,12 +132,12 @@
     # Enable the OpenSSH daemon.
     # services.openssh.enable = true;
 
-    services.displayManager.autoLogin.enable = true;
-    services.displayManager.autoLogin.user = "michael";
+    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.user = "michael";
 
-    services.flatpak.enable = true;
+    flatpak.enable = true;
 
-    services.pipewire = {
+    pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
@@ -151,21 +151,21 @@
     };
 
     # Configure keymap in X11
-    services.xserver.xkb = {
+    xserver.xkb = {
       layout = "us";
       variant = "";
     };
 
     # Enable CUPS to print documents.
-    services.printing.enable = true;
+    printing.enable = true;
 
     # Enable the X11 windowing system.
     # services.xserver.enable = true;
 
     # KDE
-    services.displayManager.sddm.enable = true;
-    services.displayManager.sddm.wayland.enable = true;
-    services.desktopManager.plasma6.enable = true;
+    displayManager.sddm.enable = true;
+    displayManager.sddm.wayland.enable = true;
+    desktopManager.plasma6.enable = true;
   };
 
   # Open ports in the firewall.
