@@ -62,13 +62,9 @@
     sessionVariables = {
       EDITOR = "vim";
     };
+
   };
 
-  programs = {
-    # Let Home Manager install and manage itself.
-    home-manager.enable = true;
-
-      enable = true;
-    };
-  };
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }

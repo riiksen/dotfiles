@@ -3,7 +3,7 @@
   home = {
     file = {
       ".spacemacs" = {
-        source = lib.shared.root "configs/.spacemacs";
+        source = lib.utils.fromRoot "configs/.spacemacs";
       };
     };
 
