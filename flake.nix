@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     # Hardware
     nixos-06cb-009a-fingerprint-sensor = {
       url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
@@ -70,5 +73,6 @@
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
+      overlays = import ./overlays { inherit inputs; };
     };
 }
