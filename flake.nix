@@ -47,6 +47,8 @@
       inherit (self) outputs;
       inherit (nixpkgs) lib;
 
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+
       mkHostConfigs =
         machines: lib.foldl (acc: set: acc // set) { } (lib.map (host: mkMachine host) machines);
 
@@ -64,15 +66,16 @@
 
       machines = lib.attrNames (builtins.readDir ./machines);
       system = "x86_64-linux";
-
+      systems = [ system ];
     in
     {
+      overlays = import ./overlays { inherit inputs; };
+
       nixosConfigurations = lib.fold (acc: set: acc // set) { } (
         lib.map (machine: mkMachine machine) machines
       );
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
-      overlays = import ./overlays { inherit inputs; };
     };
 }
