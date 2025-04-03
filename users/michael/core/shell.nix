@@ -21,8 +21,25 @@
   };
 
   home.packages = with pkgs; [
+    # Testing
+    warp-terminal
+    ghostty
+    zellij
+
     strace
     ltrace
     lsof
+
+    # Utilities
+    neofetch
+    bat
+
+    fzf
+    file
+    which
+    tree
+    btop
+    iotop
+    iftop
   ];
 }

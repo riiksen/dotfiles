@@ -28,21 +28,6 @@
       # Core packages
       pinentry
 
-      # Programs
-      warp-terminal
-
-      # Terminal utilities
-      neofetch
-      bat
-
-      fzf
-      file
-      which
-      tree
-      btop
-      iotop
-      iftop
-
       zip
       unzip
       rar
