@@ -12,6 +12,7 @@
       "modules/home-assistant.nix"
       "modules/home-manager.nix"
       "modules/remote-access.nix"
+      "modules/nixpkgs.nix"
     ])
   ];
 

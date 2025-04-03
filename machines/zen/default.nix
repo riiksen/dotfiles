@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  outputs,
   ...
 }:
 
@@ -12,6 +13,7 @@
     (map lib.utils.fromRoot [
       "modules/audio.nix"
       "modules/home-manager.nix"
+      "modules/nixpkgs.nix"
       "modules/t480-fingerprint-sensor.nix"
       "modules/yubikey.nix"
     ])
@@ -95,9 +97,6 @@
       startAgent = true;
     };
   };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [
     "nix-command"

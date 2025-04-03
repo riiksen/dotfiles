@@ -13,6 +13,7 @@
       "modules/audio.nix"
       "modules/home-manager.nix"
       "modules/gaming.nix"
+      "modules/nixpkgs.nix"
       "modules/yubikey.nix"
     ])
   ];
