@@ -8,6 +8,8 @@
     };
 
     packages = with pkgs; [
+      unstable.code-cursor
+
       # Git
       delta
       lazygit
